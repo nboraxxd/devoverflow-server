@@ -1,5 +1,7 @@
-import { Db, MongoClient } from 'mongodb'
+import { Collection, Db, MongoClient } from 'mongodb'
 
+import User from '@/models/user.models'
+import RefreshToken from '@/models/refresh-token.model'
 import envVariables from '@/schemas/env-variables.schema'
 
 const URI = `mongodb+srv://${envVariables.DB_USERNAME}:${envVariables.DB_PASSWORD}@devoverflowsingapore.lhj6o.mongodb.net/?retryWrites=true&w=majority&appName=${envVariables.DB_CLUSTER}`
@@ -22,6 +24,14 @@ class DatabaseService {
       console.log('🚨 Unable to connect to the database:', error)
       throw error
     }
+  }
+
+  get users(): Collection<User> {
+    return this.db.collection<User>('users')
+  }
+
+  get refreshTokens(): Collection<RefreshToken> {
+    return this.db.collection<RefreshToken>('refreshTokens')
   }
 }
 

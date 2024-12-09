@@ -33,6 +33,8 @@ const envSchema = z.object({
 
   PRODUCTION: z.enum(['true', 'false']).transform((value) => value === 'true'),
   SERVER_URL: z.string(),
+
+  DOMAIN_ALLOW_LIST: z.string(),
 })
 
 const envProject = envSchema.safeParse(process.env)
